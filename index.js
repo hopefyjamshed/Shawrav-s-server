@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const app = express()
+require('dotenv').config()
 const port = process.env.PORT || 5000;
 
 // middlewere 
@@ -22,6 +23,15 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 async function run() {
     try {
         const serviceCollection = client.db('shawravsDbUser').collection('services')
+
+        app.get('/services', async (req, res) => {
+            const query = {}
+            const cursor = serviceCollection.find(query)
+            const services = await cursor.toArray()
+
+            res.send(services)
+
+        })
 
 
     }
