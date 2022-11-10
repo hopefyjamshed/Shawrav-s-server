@@ -23,6 +23,6 @@ api uses
 <li>by client site command the server add and removes data</li>
 <li>the server has firebase and other keys secure by .env</li>
 <li>it's containes service and review data individually</li>
-<li></li>
+
 
 </ul>
