@@ -79,6 +79,26 @@ async function run() {
             const reviews = await cursor.toArray()
             res.send(reviews)
         })
+        app.put('/review/:id', async (req, res) => {
+            const id = req.params.id
+            const filter = { _id: ObjectId(id) }
+            const user = req.body
+            const option = { upsert: true }
+            const updatedUser = {
+                $set: {
+                    message: user.message
+                }
+            }
+            const result = await reviewCollection.updateOne(filter, updatedUser, option)
+            res.send(result)
+        })
+
+        app.get('/review/:id', async (req, res) => {
+            const id = req.params.id
+            const query = { _id: ObjectId(id) }
+            const result = await reviewCollection.findOne(query)
+            res.send(result)
+        })
 
         app.delete('/review/:id', async (req, res) => {
             const id = req.params.id
