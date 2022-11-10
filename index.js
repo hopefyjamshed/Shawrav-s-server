@@ -75,7 +75,8 @@ async function run() {
                     email: req.query.email
                 }
             }
-            const cursor = reviewCollection.find(query)
+
+            const cursor = reviewCollection.find(query).sort()
             const reviews = await cursor.toArray()
             res.send(reviews)
         })
@@ -96,6 +97,10 @@ async function run() {
         app.get('/review/:id', async (req, res) => {
             const id = req.params.id
             const query = { _id: ObjectId(id) }
+
+
+
+
             const result = await reviewCollection.findOne(query)
             res.send(result)
         })
