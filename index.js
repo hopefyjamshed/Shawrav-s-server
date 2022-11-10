@@ -64,7 +64,7 @@ async function run() {
             const query = req.body
             const cursor = serviceCollection.find(query)
             const reviews = await cursor.toArray()
-            res.send
+            res.send(reviews)
         })
 
 
