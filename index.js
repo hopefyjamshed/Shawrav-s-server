@@ -43,9 +43,19 @@ async function run() {
 
 
         app.get('/allservices', async (req, res) => {
-            const query = {}
+            const search = req.query.search
 
-            const cursor = serviceCollection.find(query)
+            let query = {}
+            if (search.length) {
+                query = {
+                    $text: {
+                        $search: search
+                    }
+                }
+            }
+            const sort = { _id: -1 }
+
+            const cursor = serviceCollection.find(query).sort(sort)
             const services = await cursor.toArray()
 
             res.send(services)
